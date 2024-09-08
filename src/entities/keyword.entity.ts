@@ -5,6 +5,8 @@ import {
   CreateDateColumn,
   ManyToOne,
   OneToMany,
+  JoinColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Author } from './author.entity';
 import { Notification } from './notification.entity';
@@ -17,13 +19,17 @@ export class Keyword {
   @Column({ length: 50 })
   keyword: string;
 
+  @Column()
+  author_id: number;
+
   @ManyToOne(() => Author, (author) => author.keywords)
+  @JoinColumn({ name: 'author_id' })
   author: Author;
 
   @CreateDateColumn()
   created_at: Date;
 
-  @Column({ nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at: Date;
 
   @OneToMany(() => Notification, (notification) => notification.keyword)

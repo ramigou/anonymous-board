@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   Check,
+  JoinColumn,
 } from 'typeorm';
 import { Author } from './author.entity';
 import { Keyword } from './keyword.entity';
@@ -19,10 +20,18 @@ export class Notification {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  recipient_id: number;
+
   @ManyToOne(() => Author, (author) => author.notifications)
+  @JoinColumn({ name: 'recipient_id' })
   recipient: Author;
 
+  @Column()
+  keyword_id: number;
+
   @ManyToOne(() => Keyword, (keyword) => keyword.notifications)
+  @JoinColumn({ name: 'keyword_id' })
   keyword: Keyword;
 
   @Column({
@@ -31,12 +40,21 @@ export class Notification {
   })
   content_type: 'post' | 'comment';
 
+
+  @Column({ nullable: true })
+  post_id: number | null;
+
   @ManyToOne(() => Post, (post) => post.notifications, { nullable: true })
+  @JoinColumn({ name: 'post_id' })
   post: Post;
+
+  @Column({ nullable: true })
+  comment_id: number | null;
 
   @ManyToOne(() => Comment, (comment) => comment.notifications, {
     nullable: true,
   })
+  @JoinColumn({ name: 'comment_id' })
   comment: Comment;
 
   @Column('text')
