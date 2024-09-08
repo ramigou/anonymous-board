@@ -40,7 +40,6 @@ export class Notification {
   })
   content_type: 'post' | 'comment';
 
-
   @Column({ nullable: true })
   post_id: number | null;
 
