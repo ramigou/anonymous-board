@@ -23,7 +23,7 @@ export class Author {
   created_at: Date;
 
   @UpdateDateColumn({ nullable: true })
-  updated_at: Date;
+  updated_at: Date | null;
 
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];

@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToMany,
+  DeleteDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { Author } from './author.entity';
 import { Post } from './post.entity';
@@ -19,27 +21,39 @@ export class Comment {
   @Column('text')
   content: string;
 
+  @Column()
+  author_id: number;
+
   @ManyToOne(() => Author, (author) => author.comments)
+  @JoinColumn({ name: 'author_id' })
   author: Author;
 
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn({ nullable: true })
-  updated_at: Date;
+  updated_at: Date | null;
+
+  @DeleteDateColumn({ nullable: true })
+  deleted_at: Date | null;
 
   @Column({ nullable: true })
-  deleted_at: Date;
+  post_id: number | null;
 
   @ManyToOne(() => Post, (post) => post.comments)
+  @JoinColumn({ name: 'post_id' })
   post: Post;
+
+  @Column({ nullable: true })
+  parent_comment_id: number | null;
 
   @ManyToOne(() => Comment, (comment) => comment.childComments, {
     nullable: true,
   })
-  parent_comment: Comment;
+  @JoinColumn({ name: 'parent_comment_id' })
+  parentComment: Comment;
 
-  @OneToMany(() => Comment, (comment) => comment.parent_comment)
+  @OneToMany(() => Comment, (comment) => comment.parentComment)
   childComments: Comment[];
 
   @OneToMany(() => Notification, (notification) => notification.comment)

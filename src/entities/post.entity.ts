@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToMany,
+  JoinColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Author } from './author.entity';
 import { Comment } from './comment.entity';
@@ -22,7 +24,11 @@ export class Post {
   @Column('text')
   content: string;
 
-  @ManyToOne(() => Author, (author) => author.posts)
+  @Column()
+  author_id: number;
+
+  @ManyToOne(() => Author, (author) => author.posts, { eager: true })
+  @JoinColumn({ name: 'author_id' })
   author: Author;
 
   @Column()
@@ -37,8 +43,8 @@ export class Post {
   @UpdateDateColumn({ nullable: true })
   updated_at: Date;
 
-  @Column({ nullable: true })
-  deleted_at: Date;
+  @DeleteDateColumn({ nullable: true })
+  deleted_at: Date | null;
 
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
