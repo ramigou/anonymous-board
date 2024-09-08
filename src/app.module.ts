@@ -11,15 +11,19 @@ import { WinstonModule } from 'nest-winston';
 import { winstonConfig } from './config/winston.config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
+import { KeywordsModule } from './modules/keywords/keywords.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormConfig),
     WinstonModule.forRoot(winstonConfig),
+    EventEmitterModule.forRoot(),
     PostsModule,
     CommentsModule,
     NotificationsModule,
     AuthorsModule,
+    KeywordsModule,
   ],
   controllers: [AppController],
   providers: [

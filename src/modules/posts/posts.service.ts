@@ -9,12 +9,14 @@ import { pbkdf2Sync, randomBytes } from 'crypto';
 import { PostsRepository } from './posts.repository';
 import { AuthorsRepository } from '../authors/authors.repository';
 import { FindPostsReqDto } from './dto/find-posts.req.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class PostsService {
   constructor(
     private readonly postsRepository: PostsRepository,
     private readonly authorsRepository: AuthorsRepository,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async createPost(newPost: CreatePostReqDto): Promise<any> {
@@ -26,12 +28,16 @@ export class PostsService {
       author = await this.authorsRepository.create(newPost.author_name);
     }
 
-    return await this.postsRepository.create({
+    const post = await this.postsRepository.create({
       ...newPost,
       password: hashedPassword,
       salt,
       author,
     });
+
+    this.eventEmitter.emit('created', { post });
+
+    return post;
   }
 
   async findAllPosts(searchFilter: FindPostsReqDto) {
