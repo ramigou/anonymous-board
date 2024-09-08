@@ -3,15 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/entities/post.entity';
 import { FindOptionsWhere, Like, Repository } from 'typeorm';
 import { CreatePostReqDtoForDb } from './dto/create-post.req.dto';
-import { UpdatePostReqDto } from './dto/update-post.req.dto';
-import { Author } from 'src/entities/author.entity';
 import { FindPostsReqDto } from './dto/find-posts.req.dto';
 
 @Injectable()
 export class PostsRepository {
   constructor(
     @InjectRepository(Post) private postsRepository: Repository<Post>,
-    @InjectRepository(Post) private authorsRepository: Repository<Author>,
   ) {}
 
   async create(createPostDto: CreatePostReqDtoForDb): Promise<Post> {
@@ -21,8 +18,9 @@ export class PostsRepository {
       content,
       password,
       salt,
+      author,
     });
-    post.author = author;
+
     console.log('## post', post);
     return await this.postsRepository.save(post);
   }
