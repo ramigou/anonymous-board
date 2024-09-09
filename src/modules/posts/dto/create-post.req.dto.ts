@@ -3,22 +3,22 @@ import { IsDefined, IsString } from 'class-validator';
 import { Author } from 'src/entities/author.entity';
 
 export class CreatePostReqDto {
-  @ApiProperty()
+  @ApiProperty({ description: '게시글 제목', type: String })
   @IsDefined()
   @IsString()
   title: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: '게시글 본문', type: String })
   @IsDefined()
   @IsString()
   content: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: '작성자 이름(닉네임)', type: String })
   @IsDefined()
   @IsString()
   author_name: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: '게시글 비밀번호', type: String })
   @IsDefined()
   @IsString()
   password: string;
