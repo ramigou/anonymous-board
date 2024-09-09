@@ -4,6 +4,12 @@
 
 댓글 작성 기능과 키워드 알람 기능이 있는 익명 게시판 Backend Repository
 
+## Url
+### Server
+http://localhost:3333/v1
+### Swagger Docs
+http://localhost:3333/api
+
 ## Project setup (local)
 ### DB setup
 1. 로컬 환경에 mysql 설치 후 `root` 계정으로 접속
