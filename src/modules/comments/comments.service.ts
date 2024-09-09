@@ -5,8 +5,8 @@ import { AuthorsRepository } from '../authors/authors.repository';
 import { PostsService } from '../posts/posts.service';
 import { FindCommentsReqDto } from './dto/find-commnets.req.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Comment } from 'src/entities/comment.entity';
 
-// TODO service
 @Injectable()
 export class CommentsService {
   constructor(
@@ -16,7 +16,7 @@ export class CommentsService {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  async createComment(newComment: CreateCommentReqDto) {
+  async createComment(newComment: CreateCommentReqDto): Promise<Comment> {
     let author = await this.authorsRepository.findByName(
       newComment.author_name,
     );
@@ -35,15 +35,18 @@ export class CommentsService {
 
     this.eventEmitter.emit('created', { comment });
 
+    console.log('# comment', comment);
     return comment;
   }
 
-  async findAllComments(filter: FindCommentsReqDto) {
-    // TODO child comment 중복 처리
-    return await this.commentsRepository.findAll(filter);
-  }
+  async findAllComments(
+    filter: FindCommentsReqDto,
+  ): Promise<{ comments: Comment[]; total: number }> {
+    const [comments, total] = await Promise.all([
+      this.commentsRepository.findAll(filter),
+      this.commentsRepository.countAll(filter.post_id),
+    ]);
 
-  findOne(id: number) {
-    return `This action returns a #${id} comment`;
+    return { comments, total };
   }
 }
