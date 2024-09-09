@@ -32,6 +32,7 @@ CREATE DATABASE anonymous_board;
 USE anonymous_board;
 ```
 6. `.sql/schema.sql` 파일 내 쿼리를 실행하여 테이블 생성
+7. (선택 사항) `.sql/mock-data.sql` 파일 내 쿼리를 실행하여 `authors`, `keywords` 테이블에 더미 데이터 삽입
 
 ### Server setup
 ```bash
