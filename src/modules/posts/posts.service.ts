@@ -10,6 +10,7 @@ import { PostsRepository } from './posts.repository';
 import { AuthorsRepository } from '../authors/authors.repository';
 import { FindPostsReqDto } from './dto/find-posts.req.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Post } from 'src/entities/post.entity';
 
 @Injectable()
 export class PostsService {
@@ -19,7 +20,7 @@ export class PostsService {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  async createPost(newPost: CreatePostReqDto): Promise<any> {
+  async createPost(newPost: CreatePostReqDto): Promise<Post> {
     const salt = this.generateSalt();
     const hashedPassword = await this.hashPassword(newPost.password, salt);
 
@@ -40,15 +41,18 @@ export class PostsService {
     return post;
   }
 
-  async findAllPosts(searchFilter: FindPostsReqDto) {
-    return await this.postsRepository.findAll(searchFilter);
+  async findAllPosts(
+    searchFilter: FindPostsReqDto,
+  ): Promise<{ posts: Post[]; total: number }> {
+    const [posts, total] = await this.postsRepository.findAll(searchFilter);
+    return { posts, total };
   }
 
-  async findOne(id: number): Promise<any> {
+  async findOne(id: number): Promise<Post | null> {
     return await this.postsRepository.findOne(id);
   }
 
-  async updatePost(id: number, updatedPost: UpdatePostReqDto) {
+  async updatePost(id: number, updatedPost: UpdatePostReqDto): Promise<Post> {
     const post = await this.postsRepository.findOne(id);
     if (post == null) throw new NotFoundException('존재하지 않는 게시글');
 
@@ -64,7 +68,7 @@ export class PostsService {
     return await this.postsRepository.update(id, title, content);
   }
 
-  async removePost(id: number, password: string) {
+  async removePost(id: number, password: string): Promise<void> {
     const post = await this.postsRepository.findOne(id);
     if (post == null) throw new NotFoundException('존재하지 않는 게시글');
 
