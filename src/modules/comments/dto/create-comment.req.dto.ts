@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDefined, IsNumber, IsOptional, IsString } from 'class-validator';
-import { Author } from 'src/entities/author.entity';
-import { Post } from 'src/entities/post.entity';
+import { Author } from '../../../entities/author.entity';
+import { Post } from '../../../entities/post.entity';
 
 export class CreateCommentReqDto {
   @ApiProperty({ type: String, description: '댓글 작성자 이름(닉네임)' })

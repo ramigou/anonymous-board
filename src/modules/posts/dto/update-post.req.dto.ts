@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsOptional, IsString } from 'class-validator';
-import { Post } from 'src/entities/post.entity';
+import { Post } from '../../../entities/post.entity';
 
 export class UpdatePostReqDto extends PartialType(Post) {
   @ApiProperty({ type: String, description: '수정할 게시글 제목' })

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { KeywordsService } from './keywords.service';
-import { Keyword } from 'src/entities/keyword.entity';
+import { Keyword } from '../../entities/keyword.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { KeywordsRepository } from './keywords.repository';
 import { KeywordsListener } from './keywords.listener';

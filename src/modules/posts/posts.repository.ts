@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Post } from 'src/entities/post.entity';
+import { Post } from '../../entities/post.entity';
 import { FindOptionsWhere, Like, Repository } from 'typeorm';
 import { CreatePostReqDtoForDb } from './dto/create-post.req.dto';
 import { FindPostsReqDto } from './dto/find-posts.req.dto';
@@ -21,7 +21,6 @@ export class PostsRepository {
       author,
     });
 
-    console.log('## post', post);
     return await this.postsRepository.save(post);
   }
 

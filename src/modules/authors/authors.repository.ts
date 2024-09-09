@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Author } from "src/entities/author.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Author } from '../../entities/author.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthorsRepository {
@@ -17,5 +17,4 @@ export class AuthorsRepository {
     const author = this.authorsRepository.create({ name });
     return await this.authorsRepository.save(author);
   }
-
 }

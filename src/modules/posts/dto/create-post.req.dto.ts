@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsString } from 'class-validator';
-import { Author } from 'src/entities/author.entity';
+import { Author } from '../../../entities/author.entity';
 
 export class CreatePostReqDto {
   @ApiProperty({ description: '게시글 제목', type: String })

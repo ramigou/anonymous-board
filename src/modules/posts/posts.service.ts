@@ -10,7 +10,7 @@ import { PostsRepository } from './posts.repository';
 import { AuthorsRepository } from '../authors/authors.repository';
 import { FindPostsReqDto } from './dto/find-posts.req.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Post } from 'src/entities/post.entity';
+import { Post } from '../../entities/post.entity';
 
 @Injectable()
 export class PostsService {
@@ -84,15 +84,15 @@ export class PostsService {
   }
 
   // password
-  private generateSalt(): string {
+  generateSalt(): string {
     return randomBytes(16).toString('hex');
   }
 
-  private async hashPassword(password: string, salt: string): Promise<string> {
+  async hashPassword(password: string, salt: string): Promise<string> {
     return pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
   }
 
-  private async verifyPassword(
+  async verifyPassword(
     inputPassword: string,
     salt: string,
     hashedPassword: string,
