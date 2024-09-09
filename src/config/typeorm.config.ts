@@ -1,6 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-// TODO environment config
 export const typeormConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: 'localhost',
@@ -10,5 +9,5 @@ export const typeormConfig: TypeOrmModuleOptions = {
   database: 'anonymous_board',
   entities: [__dirname + '/../entities/**/*.entity{.ts,.js}'],
   synchronize: false,
-  logging: true,
+  logging: false,
 };
