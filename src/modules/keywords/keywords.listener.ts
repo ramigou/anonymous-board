@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { NotificationsService } from '../notifications/notifications.service';
 import { KeywordsService } from './keywords.service';
-import { Post } from 'src/entities/post.entity';
-import { Comment } from 'src/entities/comment.entity';
+import { Post } from '../../entities/post.entity';
+import { Comment } from '../../entities/comment.entity';
 
 @Injectable()
 export class KeywordsListener {

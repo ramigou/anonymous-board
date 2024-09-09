@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthorsRepository } from './authors.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Author } from 'src/entities/author.entity';
+import { Author } from '../../entities/author.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Author])],

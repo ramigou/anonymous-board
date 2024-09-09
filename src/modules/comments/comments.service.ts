@@ -5,7 +5,7 @@ import { AuthorsRepository } from '../authors/authors.repository';
 import { PostsService } from '../posts/posts.service';
 import { FindCommentsReqDto } from './dto/find-commnets.req.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Comment } from 'src/entities/comment.entity';
+import { Comment } from '../../entities/comment.entity';
 
 @Injectable()
 export class CommentsService {
@@ -35,7 +35,6 @@ export class CommentsService {
 
     this.eventEmitter.emit('created', { comment });
 
-    console.log('# comment', comment);
     return comment;
   }
 

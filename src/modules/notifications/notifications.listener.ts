@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { Notification } from 'src/entities/notification.entity';
+import { Notification } from '../../entities/notification.entity';
 
 @Injectable()
 export class NotificationsListener {

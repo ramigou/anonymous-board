@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Comment } from 'src/entities/comment.entity';
+import { Comment } from '../../entities/comment.entity';
 import { IsNull, Repository } from 'typeorm';
 import { CreateCommentDtoForDb } from './dto/create-comment.req.dto';
 import { FindCommentsReqDto } from './dto/find-commnets.req.dto';
